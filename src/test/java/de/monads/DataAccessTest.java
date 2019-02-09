@@ -29,6 +29,7 @@ class DataAccessTest {
     @Test
     void readPersonById_zeroId_expectFailure() {
         Exception expectedException = new IllegalArgumentException("Id value is not valid.");
+
         DataAccessMonad<Person> result = this.dataAccess.readPersonById(0);
 
         assertTrue(result instanceof DataAccessFailure, "result should be a DataAccessFailure monad.");

@@ -11,6 +11,10 @@ public interface DataAccessMonad<V> {
 
     Boolean isFailure();
 
+    V successValue();
+
+    Exception failureValue();
+
     static <V> DataAccessMonad<V> failure(String message) {
         return new DataAccessFailure<>(message);
     }
@@ -39,8 +43,6 @@ public interface DataAccessMonad<V> {
         return this;
     }
 
-    V successValue();
-
     default void ifPresentOrThrow(Consumer<V> c) {
         if (isSuccess()) {
             c.accept(successValue());
@@ -48,6 +50,7 @@ public interface DataAccessMonad<V> {
             throw ((DataAccessFailure<V>) this).exception;
         }
     }
+
     default DataAccessMonad<Exception> ifPresentOrFail(Consumer<V> c) {
         if (isSuccess()) {
             c.accept(successValue());
@@ -65,8 +68,6 @@ public interface DataAccessMonad<V> {
         }
     }
 
-
-    Exception failureValue();
 
     default <R> DataAccessMonad<R> map(Function<? super V, ? extends R> mapper) {
         return isSuccess() ?
