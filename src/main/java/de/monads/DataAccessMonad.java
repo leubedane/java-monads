@@ -2,6 +2,7 @@ package de.monads;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public interface DataAccessMonad<V> {
 
@@ -53,6 +54,14 @@ public interface DataAccessMonad<V> {
             return failure("Failed to fail!");
         } else {
             return success(failureValue());
+        }
+    }
+
+    default <X extends Throwable> DataAccessMonad<V> orElseThrow(Supplier<? extends X> exceptionSupplier) throws X {
+        if (successValue() != null) {
+            return this;
+        } else {
+            throw exceptionSupplier.get();
         }
     }
 
