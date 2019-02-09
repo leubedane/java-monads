@@ -1,5 +1,10 @@
 package de.monads;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
+@Getter
+@EqualsAndHashCode
 public class Person {
     private final String firstName;
     private final String lastName;
@@ -9,11 +14,4 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
 }

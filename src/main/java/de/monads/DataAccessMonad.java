@@ -65,6 +65,7 @@ public interface DataAccessMonad<V> {
         }
     }
 
+
     Exception failureValue();
 
     default <R> DataAccessMonad<R> map(Function<? super V, ? extends R> mapper) {
